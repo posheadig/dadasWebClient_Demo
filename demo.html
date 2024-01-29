@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Token and Pair Data</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div id="forms-container">
+      <button id="createTokenBtn">+ token</button>
+      <button id="createPairBtn">+ link</button>
+      <!-- Create Token Modal (Initially hidden) -->
+      <div id="createTokenModal" class="sidebar">
+        <label for="content">Token Name:</label>
+        <input type="text" id="content" name="content">
+        <label for="buyTokenAmount">Buy Token Amount:</label>
+        <input type="number" id="buyTokenAmount" name="buyTokenAmount">
+        <button onclick="createToken()">Create</button>
+      </div>
+      <div id="createPairSidebar" class="sidebar">
+        <label for="pairToken1">Token 1 Address:</label>
+        <input type="text" id="pairToken1" name="pairToken1" readonly onclick="selectTokenForPair('pairToken1')">
+        <label for="pairToken2">Token 2 Address:</label>
+        <input type="text" id="pairToken2" name="pairToken2" readonly onclick="selectTokenForPair('pairToken2')">
+        <label for="ethAmountModal">ETH Amount:</label>
+        <input type="number" id="ethAmountModal" name="ethAmount">
+        <label for="useOwnedTokensModal">Use Owned Tokens:</label>
+        <input type="checkbox" id="useOwnedTokensModal" name="useOwnedTokens">
+        <label for="maxSlippageModal">Max Slippage (%):</label>
+        <input type="number" id="maxSlippageModal" name="maxSlippage" value="0.5">
+        <button onclick="createPair()">Create</button>
+      </div>
+      <!-- Add Liquidity or Create Link Modal (Initially hidden) -->
+      <div id="liquidityModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('liquidityModal')">&times;</span>
+          <h2>Add Liquidity</h2>
+          <label for="tokenAAddressModal">Token A Address:</label>
+          <input type="text" id="tokenAAddressModal" name="tokenAAddressModal">
+          <label for="tokenBAddressModal">Token B Address:</label>
+          <input type="text" id="tokenBAddressModal" name="tokenBAddressModal">
+          <label for="ethAmountModal">ETH Amount:</label>
+          <input type="number" id="ethAmountModal" name="ethAmount">
+          <label for="useOwnedTokensModal">Use Owned Tokens:</label>
+          <input type="checkbox" id="useOwnedTokensModal" name="useOwnedTokens">
+          <br>
+          <label for="maxSlippageModal">Max Slippage (%):</label>
+          <input type="number" id="maxSlippageModal" name="maxSlippage" value="0.5">
+          <button onclick="addLiquidityOrLinkModal()">Submit</button>
+        </div>
+      </div>
+      <div id="buyFormModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('buyFormModal')">&times;</span>
+          <label for="buyTokenAddress">Token Address:</label>
+          <input type="text" id="buyTokenAddress" name="tokenAddress" readonly>
+          <label for="buyAmount">Amount:</label>
+          <input type="number" id="buyAmount" name="tokenAmount">
+          <button onclick="buyToken()">Buy</button>
+        </div>
+      </div>
+      <div id="sellFormModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('sellFormModal')">&times;</span>
+          <label for="sellTokenAddress">Token Address:</label>
+          <input type="text" id="sellTokenAddress" name="tokenAddress" readonly>
+          <label for="sellAmount">Amount:</label>
+          <input type="number" id="sellAmount" name="tokenAmount">
+          <button onclick="sellToken()">Sell</button>
+        </div>
+      </div>
+      <div id="selectionModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('selectionModal')">&times;</span>
+          <p id="tokenName">Token Name</p>
+          <button onclick="showBuyForm()">Buy</button>
+          <button onclick="showSellForm()">Sell</button>
+        </div>
+      </div>
+    </div>
+    <script src="bundle.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <div id="tables-container">
+      <table id="tokensTable">
+        <tr>
+          <th>Image</th>
+          <th>ID</th>
+          <th>Name (Link)</th>
+          <th>Address</th>
+          <th>Current Price</th>
+        </tr>
+        <!-- Token data will be inserted here -->
+      </table>
+      <table id="pairsTable">
+        <tr>
+          <th>ID</th>
+          <th>Token0 Address</th>
+          <th>Token1 Address</th>
+          <th>Token0 Name</th>
+          <th>Token1 Name</th>
+          <th>Token0 Reserve</th>
+          <th>Token1 Reserve</th>
+          <th>Total Value</th>
+        </tr>
+        <!-- Pair data will be inserted here -->
+      </table>
+    </div>
+    <script>
+
+function selectTokenForPair(inputId) {
+   activePairInput = inputId;
+   // Optional: Provide visual feedback or instructions to the user
+   console.log('Please click on a token in the graph to select it for:', inputId);
+}
+
+document.getElementById('createPairBtn').addEventListener('click', function () {
+   // Modify the toggle logic to reset activePairInput
+   var sidebar = document.getElementById('createPairSidebar');
+   if (sidebar.style.display === 'none') {
+      sidebar.style.display = 'block';
+   } else {
+      sidebar.style.display = 'none';
+      activePairInput = null;
+   }
+});
+
+
+document.getElementById('createTokenBtn').addEventListener('click', function () {
+   var sidebar = document.getElementById('createTokenModal');
+   if (sidebar.style.display === 'none') {
+      sidebar.style.display = 'block';
+   } else {
+      sidebar.style.display = 'none';
+      activePairInput = null;
+   }
+});
+
+
+function showBuyForm() {
+   closeModal('selectionModal');
+   document.getElementById('buyFormModal').style.display = 'block';
+}
+
+function showSellForm() {
+   closeModal('selectionModal');
+   document.getElementById('sellFormModal').style.display = 'block';
+}
+
+function closeModal(modalId) {
+   document.getElementById(modalId).style.display = 'none';
+   // Add this line in your closeModal function
+   activePairInput = null;
+
+}
+
+async function createPair() {
+   var token1Address = document.getElementById('pairToken1').value;
+   var token2Address = document.getElementById('pairToken2').value;
+   var ethAmount = document.getElementById('ethAmountModal').value;
+   var useOwnedTokens = document.getElementById('useOwnedTokensModal').checked;
+   var maxSlippage = parseFloat(document.getElementById('maxSlippageModal').value) / 100;
+
+   try {
+      // Assuming the function is exported in your bundle
+      const result = await dadas.link(token1Address, token2Address, ethAmount, useOwnedTokens, maxSlippage);
+      console.log(result);
+      if (result.status === 200) {
+         window.location.reload();
+      }
+      // You can also update the UI with the result
+      closeModal('createPairModal');
+   } catch (error) {
+      console.error('Link Creation Error:', error);
+      // Handle the error in your UI
+   }
+}
+
+async function createToken() {
+   var content = document.getElementById('content').value;
+   var buyTokenAmount = document.getElementById('buyTokenAmount').value;
+
+   try {
+      // Assuming the function is exported in your bundle
+      const result = await dadas.token(content, buyTokenAmount);
+      console.log(result);
+      if (result.status === 200) {
+         window.location.reload();
+      }
+      // You can also update the UI with the result
+   } catch (error) {
+      console.error('Token Creation Error:', error);
+      // Handle the error in your UI
+   }
+}
+async function addLiquidityOrLinkModal() {
+   var tokenAAddress = document.getElementById('tokenAAddressModal').value;
+   var tokenBAddress = document.getElementById('tokenBAddressModal').value;
+   var ethAmount = document.getElementById('ethAmountModal').value;
+   var useOwnedTokens = document.getElementById('useOwnedTokensModal').checked;
+   var maxSlippage = parseFloat(document.getElementById('maxSlippageModal').value) / 100;
+   console.log(tokenAAddress, tokenBAddress, 'ethamount', ethAmount, useOwnedTokens, maxSlippage);
+   try {
+      // Assuming the function is exported in your bundle
+      const result = await dadas.link(tokenAAddress, tokenBAddress, '.025', useOwnedTokens, maxSlippage);
+      console.log(result);
+      if (result.status === 200) {
+         window.location.reload();
+      }
+      // You can also update the UI with the result
+      closeModal('liquidityModal');
+   } catch (error) {
+      console.error('Link Creation Error:', error);
+      // Handle the error in your UI
+   }
+}
+async function buyToken() {
+   var tokenAddress = document.getElementById('buyTokenAddress').value;
+   var tokenAmount = document.getElementById('buyAmount').value;
+
+   try {
+      // Assuming the function is exported as dadas.buy in your bundle
+      const result = await dadas.buy(tokenAddress, tokenAmount);
+      console.log(result);
+      if (result.status === 200) {
+         window.location.reload();
+      }
+      // You can also add code to update the UI with the result
+   } catch (error) {
+      console.error('Buy Error:', error);
+      // Handle the error in your UI
+   }
+}
+
+async function sellToken() {
+   var tokenAddress = document.getElementById('sellTokenAddress').value;
+   var tokenAmount = document.getElementById('sellAmount').value;
+
+   try {
+      // Assuming the function is exported as dadas.buy in your bundle
+      const result = await dadas.sell(tokenAddress, tokenAmount);
+      console.log(result);
+      if (result.status === 200) {
+         window.location.reload();
+      }
+      // You can also add code to update the UI with the result
+   } catch (error) {
+      console.error('Buy Error:', error);
+      // Handle the error in your UI
+   }
+}
+
+async function fetchPairs() {
+   const pairsQuery = `
+            query MyQuery {
+                tokens(first: 20) {
+                    id
+                    name
+                    address
+                }
+                pairs(first: 20) {
+                    id
+                    token0
+                    token1
+                    address
+                    token1Name
+                    token0Name
+                    reserve1
+                    reserve0
+                }
+            }`;
+
+   try {
+      const response = await fetch('https://api.studio.thegraph.com/proxy/53594/dadastest/v0.3.6', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+         },
+         body: JSON.stringify({
+            query: pairsQuery
+         })
+      });
+
+      if (!response.ok) {
+         throw new Error(`HTTP Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      if (data.errors) {
+         throw new Error(`GraphQL Error: ${data.errors.map(e => e.message).join('\n')}`);
+      }
+      const proced = await dadas.processData(data.data.tokens, data.data.pairs);
+      console.log(proced);
+      return proced
+   } catch (error) {
+      console.error('Fetch Error:', error);
+   }
+}
+
+async function displayData() {
+   const data = await fetchPairs();
+   if (data) {
+      const tokensTable = document.getElementById('tokensTable');
+      data.tokens.forEach(token => {
+         const row = tokensTable.insertRow();
+
+         // Insert an image cell
+         const imgCell = row.insertCell();
+         const img = document.createElement('img');
+         img.src = `https://www.google.com/s2/favicons?domain=${new URL(token.name).hostname}`;
+         img.alt = 'Image';
+         img.style.width = '30px';
+         imgCell.appendChild(img);
+
+         // Insert other data cells
+         row.insertCell().textContent = token.id;
+         const nameCell = row.insertCell();
+         const nameLink = document.createElement('a');
+         nameLink.href = token.name;
+         nameLink.textContent = token.name;
+         nameCell.appendChild(nameLink);
+         row.insertCell().textContent = token.address;
+         row.insertCell().textContent = token.currentPrice.toFixed(6); // Adjust decimal places as needed
+      });
+
+      const pairsTable = document.getElementById('pairsTable');
+      data.pairs.forEach(pair => {
+         const row = pairsTable.insertRow();
+         row.insertCell().textContent = pair.pairAddress;
+         row.insertCell().textContent = pair.token0Address;
+         row.insertCell().textContent = pair.token1Address;
+         row.insertCell().textContent = pair.token0Name;
+         row.insertCell().textContent = pair.token1Name;
+         row.insertCell().textContent = parseFloat(pair.token0Reserve).toFixed(6); // Format reserves
+         row.insertCell().textContent = parseFloat(pair.token1Reserve).toFixed(6);
+         row.insertCell().textContent = pair.totalValue.toFixed(6);
+      });
+      createGraph(data);
+   }
+}
+
+displayData();
+
+
+function prepareGraphData(data) {
+   const nodes = data.tokens.map(token => {
+      return {
+         id: token.id,
+         name: token.name,
+         currentPrice: token.currentPrice // Include current price for sizing
+      };
+   });
+
+   const links = data.pairs.map(pair => {
+      return {
+         source: pair.token0Address, // Assuming token0 is the ID of the source node
+         target: pair.token1Address, // Assuming token1 is the ID of the target node
+         token0Name: pair.token0Name, // Additional pair data
+         token1Name: pair.token1Name,
+         totalValue: pair.totalValue
+      };
+   });
+   console.log(links);
+
+   return {
+      nodes,
+      links
+   };
+}
+
+function createGraph(data) {
+   const graphData = prepareGraphData(data);
+   const width = 1500,
+      height = 800;
+
+   // Create SVG element
+   const svg = d3.select('body').append('svg')
+      .attr('width', width)
+      .attr('height', height);
+
+   // Scaling function for node size
+   const sizeScale = d3.scaleLinear()
+      .domain(d3.extent(graphData.nodes, d => d.currentPrice))
+      .range([10, 20]); // Increased size range for nodes
+   // Define a scale for the link width
+   const linkWidthScale = d3.scaleLinear()
+      .domain(d3.extent(graphData.links, d => d.totalValue))
+      .range([1, 5]); //
+
+   // Create links (lines)
+   const link = svg.selectAll(".link")
+      .data(graphData.links)
+      .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", d => linkWidthScale(d.totalValue))
+      .style("stroke", "#999") // Style for links
+      .style("stroke-opacity", 0.9);
+   link.on('click', function (d, i) {
+      document.getElementById('tokenAAddressModal').value = i.source.id; // Correctly reference source id
+      document.getElementById('tokenBAddressModal').value = i.target.id; // Correctly reference target id
+      document.getElementById('liquidityModal').style.display = 'block';
+   });
+
+   // Create nodes (circles)
+   const node = svg.selectAll(".node")
+      .data(graphData.nodes)
+      .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", d => sizeScale(d.currentPrice)) // Node size based on current price
+      .style("fill", "#000000"); // Style for nodes
+   node.on('click', function (d, i) {
+      if (activePairInput) {
+         document.getElementById(activePairInput).value = i.id;
+         activePairInput = null; // Reset the active input field
+      } else {
+         // Existing functionality for node click
+         document.getElementById('tokenName').textContent = i.name;
+         document.getElementById('buyTokenAddress').value = i.id;
+         document.getElementById('sellTokenAddress').value = i.id;
+         document.getElementById('selectionModal').style.display = 'block';
+      }
+   });
+
+   // Define drag behavior
+
+   const drag = d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
+
+   function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+   }
+
+   function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+   }
+
+   function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+   }
+
+   // Apply the drag behavior to the nodes
+   node.call(drag);
+
+   // Create label groups
+   const labelGroups = svg.selectAll(".label-group")
+      .data(graphData.nodes)
+      .enter().append("g")
+      .attr("class", "label-group");
+   labelGroups.append("rect")
+      .attr("class", "label-bg")
+      .style("fill", "#fff") // White background
+      .style("stroke", "#000") // Black border
+      .style("opacity", 0.8);
+
+
+   labelGroups.append("foreignObject")
+      .attr("class", "label-foreignObj")
+      .attr("width", 275) // Set a fixed width
+      .attr("height", 60) // Set an estimated height
+      .append("xhtml:div")
+      .style("word-wrap", "break-word") // Ensure text wraps
+      .html(d => `<div style='text-align: center;'><a target="blank" href="${d.name}">${d.name}</a>": ${d.currentPrice.toFixed(6)}</div>`);
+
+   const labelBackgrounds = svg.selectAll(".label-bg")
+      .data(graphData.nodes)
+      .enter().append("rect")
+      .style("border", "#005") // White background
+      .style("opacity", 0.7); // Slightly transparent
+   const padding = 20; // Adjust as needed
+   const minX = padding;
+   const minY = padding;
+   const maxX = width - padding;
+   const maxY = height - padding;
+
+
+   const simulation = d3.forceSimulation(graphData.nodes)
+      .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(250))
+      .force("charge", d3.forceManyBody().strength(-1400))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX().x(d => Math.max(minX, Math.min(maxX, d.x))))
+      .force("y", d3.forceY().y(d => Math.max(minY, Math.min(maxY, d.y))));
+
+
+   simulation.on("tick", () => {
+      link.attr("x1", d => d.source.x)
+         .attr("y1", d => d.source.y)
+         .attr("x2", d => d.target.x)
+         .attr("y2", d => d.target.y);
+      node.attr("cx", d => d.x)
+         .attr("cy", d => d.y);
+      // Position label groups
+      labelGroups.attr("transform", d => `translate(${d.x}, ${d.y})`);
+
+      labelGroups.select(".label-bg")
+         .each(function () {
+            const bbox = this.nextSibling.getBBox();
+            d3.select(this)
+               .attr("x", bbox.x - 5) // Add some padding
+               .attr("y", bbox.y - 2)
+               .attr("width", bbox.width + 10) // Add some padding
+               .attr("height", bbox.height + 4);
+         });
+   });
+}
+
+var activePairInput = null;
+    </script>
+</body>
+</html>
