@@ -15,19 +15,19 @@ export async function initializeProviderFromCurrentNetwork() {
   
   const networkMapping = {
     0xaa36a7: 'sepolia',
-    0x1: 'main',
+   // 0x1: 'main',
   };
 
   const selectedNetwork = networkMapping[network.chainId];
   if (!selectedNetwork) {
-    throw new Error('Unsupported network detected. Please switch to the private or Sepolia network.');
+    throw new Error('Unsupported network detected. Please switch to Sepolia network.');
   }
 
   return await initializeProvider(selectedNetwork);
 }
 
-export async function initializeProvider(selectedNetwork = 'main') {
-  if (!['sepolia', 'main'].includes(selectedNetwork)) {
+export async function initializeProvider(selectedNetwork = 'sepolia') {
+  if (!['sepolia'].includes(selectedNetwork)) {
     throw new Error('Invalid network specified.');
   }
 
