@@ -2667,12 +2667,55 @@ export const nameassymbolerc20_abi = [
         "type": "function"
     }
 ]
+export const arbitrageExecutorABI = [
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "path",
+                "type": "address[]"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "amounts",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "executeArbitrage",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "uniswapV2Router",
+        "outputs": [
+            {
+                "internalType": "contract IUniswapV2Router02",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    }
+]
 
 export const UNISWAP_FACTORY_ADDRESS = '0x7E0987E5b3a30e3f2828572Bb659A548460a3003';
 export const WETH_ADDRESS = '0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9';
 export const UNISWAP_PAIR_ADDRESS = '0x486941CfA4e4E38e4337f1341700E1941cfF5005';
 export const UNISWAP_ROUTER = '0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008';
-export const OVPOOLBASE_ADDRESS = '0x51333cd96b925ed3098484fA8a09dA88D8C97b29';
+export const OVPOOLBASE_ADDRESS = '0xc1baaea3b2879a6bd60b7acea170f36ff991a142';
 export const OVSWAPBASE_ADDRESS = '0x090A0F10d6c50C6e6505d6d60695048318aFd752'; 
-export const OVTOKENBASE_ADDRESS = '0xe6ef9A9bFB103bd8F67fa999850A408B7eb08415';
+export const OVTOKENBASE_ADDRESS = '0x313ff3927a284e7897ef7b48f005f7fb3be2f043';
+export const ARBITRAGE_EXECUTOR_ADDRESS = '0xb43eeb2fa9e2d78728b32b442ad03e4866effd55';
 export const BLOCK_HEIGHT = 4000000;

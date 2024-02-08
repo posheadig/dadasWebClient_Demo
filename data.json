@@ -1,0 +1,188 @@
+{
+  "data": {
+    "tokens": [
+      {
+        "id": "0x2689ea9de40e3523aaf8fc4b63048404e49493e3",
+        "name": "https://www.breitbart.com/2024-election/2024/02/05/bipartisan-border-bill-worse-than-skeptics-predicted/",
+        "address": "0x2689ea9de40e3523aaf8fc4b63048404e49493e3"
+      },
+      {
+        "id": "0x2b0bcdb0fdefbc2401b1d1729939e7c706fed0ad",
+        "name": "https://www.breitbart.com/politics/2024/01/29/nolte-border-battle-69-side-with-texas-over-biden/",
+        "address": "0x2b0bcdb0fdefbc2401b1d1729939e7c706fed0ad"
+      },
+      {
+        "id": "0x46bf772e608eebe8c81001dc129c0f3303d53b6d",
+        "name": "https://www.nbcnews.com/news/us-news/woman-2-children-die-crossing-rio-grande-border-patrol-says-was-preven-rcna133842",
+        "address": "0x46bf772e608eebe8c81001dc129c0f3303d53b6d"
+      },
+      {
+        "id": "0x4f3c9c0d2546c859d785b60eb0845bd41f863948",
+        "name": "Breitbart News",
+        "address": "0x4f3c9c0d2546c859d785b60eb0845bd41f863948"
+      },
+      {
+        "id": "0x5f9994a573d3d1a762a4786845603a936cd6b72e",
+        "name": "https://www.nbcnews.com/politics/congress/immoral-republicans-rebuke-efforts-kill-immigration-deal-help-trump-rcna135732",
+        "address": "0x5f9994a573d3d1a762a4786845603a936cd6b72e"
+      },
+      {
+        "id": "0x9d248e4b8a7b1eac358b98b654398ffd604c2d65",
+        "name": "https://www.breitbart.com/border/2024/01/24/border-showdown-texas-constitutional-right-to-defend-against-invasion-supersedes-federal-law-says-governor/",
+        "address": "0x9d248e4b8a7b1eac358b98b654398ffd604c2d65"
+      },
+      {
+        "id": "0xc764c83ca2eab65461badb6c4140724a64c6ecda",
+        "name": "https://www.nbcnews.com/news/latino/convoy-rally-texas-mexico-border-attracts-trump-fans-decry-illegal-imm-rcna136967",
+        "address": "0xc764c83ca2eab65461badb6c4140724a64c6ecda"
+      },
+      {
+        "id": "0xd2e8dbce974547d26fcf5ab5d6295a9d94c7d892",
+        "name": "NBC News",
+        "address": "0xd2e8dbce974547d26fcf5ab5d6295a9d94c7d892"
+      }
+    ],
+    "pairs": [
+      {
+        "id": "0x17902eddbf4392e1451b820c9e1b53d964b7d840",
+        "token0": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "token1": "0xd2e8dbce974547d26fcf5ab5d6295a9d94c7d892",
+        "address": "0x17902eddbf4392e1451b820c9e1b53d964b7d840",
+        "token1Name": "NBC News",
+        "token0Name": "Wrapped Ether",
+        "reserve1": "2292015945291131086881",
+        "reserve0": "219016785821154551"
+      },
+      {
+        "id": "0x2037926c9fe3c3679e224e0896dba02bc18a6a4d",
+        "token0": "0x4f3c9c0d2546c859d785b60eb0845bd41f863948",
+        "token1": "0x9d248e4b8a7b1eac358b98b654398ffd604c2d65",
+        "address": "0x2037926c9fe3c3679e224e0896dba02bc18a6a4d",
+        "token1Name": "https://www.breitbart.com/border/2024/01/24/border-showdown-texas-constitutional-right-to-defend-against-invasion-supersedes-federal-law-says-governor/",
+        "token0Name": "Breitbart News",
+        "reserve1": "1067704852379845255645",
+        "reserve0": "641969822104015445041"
+      },
+      {
+        "id": "0x2a2b146132ecd46c1eabb1e01c08425ae8c9593d",
+        "token0": "0x2689ea9de40e3523aaf8fc4b63048404e49493e3",
+        "token1": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "address": "0x2a2b146132ecd46c1eabb1e01c08425ae8c9593d",
+        "token1Name": "Wrapped Ether",
+        "token0Name": "https://www.breitbart.com/2024-election/2024/02/05/bipartisan-border-bill-worse-than-skeptics-predicted/",
+        "reserve1": "55994909824991317",
+        "reserve0": "8932295147620154744355"
+      },
+      {
+        "id": "0x2f6fa70a1975af328a1937cebcae9ef3103baab3",
+        "token0": "0x4f3c9c0d2546c859d785b60eb0845bd41f863948",
+        "token1": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "address": "0x2f6fa70a1975af328a1937cebcae9ef3103baab3",
+        "token1Name": "Wrapped Ether",
+        "token0Name": "Breitbart News",
+        "reserve1": "61766755901685697",
+        "reserve0": "8141843768761833462985"
+      },
+      {
+        "id": "0x37f380b9b0af417fc7bdab87d25191bcbd6a01c6",
+        "token0": "0x2b0bcdb0fdefbc2401b1d1729939e7c706fed0ad",
+        "token1": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "address": "0x37f380b9b0af417fc7bdab87d25191bcbd6a01c6",
+        "token1Name": "Wrapped Ether",
+        "token0Name": "https://www.breitbart.com/politics/2024/01/29/nolte-border-battle-69-side-with-texas-over-biden/",
+        "reserve1": "56989821252057109",
+        "reserve0": "8776817452661758816947"
+      },
+      {
+        "id": "0x3e3a7734307784a30fc53a2e6522caa505e168f4",
+        "token0": "0x2689ea9de40e3523aaf8fc4b63048404e49493e3",
+        "token1": "0x4f3c9c0d2546c859d785b60eb0845bd41f863948",
+        "address": "0x3e3a7734307784a30fc53a2e6522caa505e168f4",
+        "token1Name": "Breitbart News",
+        "token0Name": "https://www.breitbart.com/2024-election/2024/02/05/bipartisan-border-bill-worse-than-skeptics-predicted/",
+        "reserve1": "543330618076800022733",
+        "reserve0": "1067704852379845255645"
+      },
+      {
+        "id": "0x523ed51d0b22d2a06de4200b449bf0dbd606a963",
+        "token0": "0x46bf772e608eebe8c81001dc129c0f3303d53b6d",
+        "token1": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "address": "0x523ed51d0b22d2a06de4200b449bf0dbd606a963",
+        "token1Name": "Wrapped Ether",
+        "token0Name": "https://www.nbcnews.com/news/us-news/woman-2-children-die-crossing-rio-grande-border-patrol-says-was-preven-rcna133842",
+        "reserve1": "56989821252057109",
+        "reserve0": "8776817452661758816947"
+      },
+      {
+        "id": "0x537d2681599f77e90888a7ad6685a5ef9207ef21",
+        "token0": "0x5f9994a573d3d1a762a4786845603a936cd6b72e",
+        "token1": "0xd2e8dbce974547d26fcf5ab5d6295a9d94c7d892",
+        "address": "0x537d2681599f77e90888a7ad6685a5ef9207ef21",
+        "token1Name": "NBC News",
+        "token0Name": "https://www.nbcnews.com/politics/congress/immoral-republicans-rebuke-efforts-kill-immigration-deal-help-trump-rcna135732",
+        "reserve1": "672531843733941934226",
+        "reserve0": "1223182547338241183053"
+      },
+      {
+        "id": "0x8f03aed70359789d042cebcf4952b5f47d7a0962",
+        "token0": "0x2b0bcdb0fdefbc2401b1d1729939e7c706fed0ad",
+        "token1": "0x4f3c9c0d2546c859d785b60eb0845bd41f863948",
+        "address": "0x8f03aed70359789d042cebcf4952b5f47d7a0962",
+        "token1Name": "Breitbart News",
+        "token0Name": "https://www.breitbart.com/politics/2024/01/29/nolte-border-battle-69-side-with-texas-over-biden/",
+        "reserve1": "672531843733941934226",
+        "reserve0": "1223182547338241183053"
+      },
+      {
+        "id": "0x97b545d547092581a78661afb6fd4a020dddac85",
+        "token0": "0x5f9994a573d3d1a762a4786845603a936cd6b72e",
+        "token1": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "address": "0x97b545d547092581a78661afb6fd4a020dddac85",
+        "token1Name": "Wrapped Ether",
+        "token0Name": "https://www.nbcnews.com/politics/congress/immoral-republicans-rebuke-efforts-kill-immigration-deal-help-trump-rcna135732",
+        "reserve1": "56989821252057109",
+        "reserve0": "8776817452661758816947"
+      },
+      {
+        "id": "0xd0246218a9307430bc6ae8b7d79b0c77b7d6d5fb",
+        "token0": "0x46bf772e608eebe8c81001dc129c0f3303d53b6d",
+        "token1": "0xd2e8dbce974547d26fcf5ab5d6295a9d94c7d892",
+        "address": "0xd0246218a9307430bc6ae8b7d79b0c77b7d6d5fb",
+        "token1Name": "NBC News",
+        "token0Name": "https://www.nbcnews.com/news/us-news/woman-2-children-die-crossing-rio-grande-border-patrol-says-was-preven-rcna133842",
+        "reserve1": "560583348948855492395",
+        "reserve0": "1223182547338241183053"
+      },
+      {
+        "id": "0xd0f076ac2b1bfe8b5638226b631ddda1213fe174",
+        "token0": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "token1": "0xc764c83ca2eab65461badb6c4140724a64c6ecda",
+        "address": "0xd0f076ac2b1bfe8b5638226b631ddda1213fe174",
+        "token1Name": "https://www.nbcnews.com/news/latino/convoy-rally-texas-mexico-border-attracts-trump-fans-decry-illegal-imm-rcna136967",
+        "token0Name": "Wrapped Ether",
+        "reserve1": "8776817452661758816947",
+        "reserve0": "56989821252057109"
+      },
+      {
+        "id": "0xe1d05cc525d0e4630e209556de33090e58bafb35",
+        "token0": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "token1": "0x9d248e4b8a7b1eac358b98b654398ffd604c2d65",
+        "address": "0xe1d05cc525d0e4630e209556de33090e58bafb35",
+        "token1Name": "https://www.breitbart.com/border/2024/01/24/border-showdown-texas-constitutional-right-to-defend-against-invasion-supersedes-federal-law-says-governor/",
+        "token0Name": "Wrapped Ether",
+        "reserve1": "8932295147620154744355",
+        "reserve0": "55994909824991317"
+      },
+      {
+        "id": "0xe219af830aa194756dce34568573bd4f20a7ebf7",
+        "token0": "0xc764c83ca2eab65461badb6c4140724a64c6ecda",
+        "token1": "0xd2e8dbce974547d26fcf5ab5d6295a9d94c7d892",
+        "address": "0xe219af830aa194756dce34568573bd4f20a7ebf7",
+        "token1Name": "NBC News",
+        "token0Name": "https://www.nbcnews.com/news/latino/convoy-rally-texas-mexico-border-attracts-trump-fans-decry-illegal-imm-rcna136967",
+        "reserve1": "474449245090206233466",
+        "reserve0": "1223182547338241183053"
+      }
+    ]
+  }
+}

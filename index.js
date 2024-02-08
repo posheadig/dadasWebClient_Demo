@@ -9,5 +9,9 @@ module.exports = {
 ...require('./blockchain_posts/newToken.js'),
 ...require('./blockchain_posts/newLink.js'),
 ...require('./blockchain_posts/removeLiquidity.js'),
-...require('./demo.js')
+...require('./blockchain_posts/botswap.js'),
+...require('./demo.js'),
+...require('./bot.js'),
+...require('./blockchain_posts/botswap.js'),
+...require('./blockchain_posts/removeLiquidity.js')
 }
